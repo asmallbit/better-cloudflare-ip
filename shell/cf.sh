@@ -3,8 +3,8 @@
 version=20220615
 
 function bettercloudflareip(){
-read -p "请设置期望的带宽大小(默认最小1,单位 Mbps):" bandwidth
-read -p "请设置RTT测试进程数(默认10,最大50):" tasknum
+#read -p "请设置期望的带宽大小(默认最小1,单位 Mbps):" bandwidth
+#read -p "请设置RTT测试进程数(默认10,最大50):" tasknum
 if [ -z "$bandwidth" ]
 then
 	bandwidth=1
@@ -190,13 +190,14 @@ do
 		file=$(grep file= data.txt | cut -f 2- -d'=')
 		url=$(grep url= data.txt | cut -f 2- -d'=')
 		app=$(grep app= data.txt | cut -f 2- -d'=')
-		if [ "$app" != "$version" ]
-		then
-			echo "发现新版本程序: $app"
-			echo "更新地址: $url"
-			echo "更新后才可以使用"
-			exit
-		fi
+## I dont want to update
+#		if [ "$app" != "$version" ]
+#		then
+#			echo "发现新版本程序: $app"
+#			echo "更新地址: $url"
+#			echo "更新后才可以使用"
+#			exit
+#		fi
 		for i in `cat data.txt | sed '1,4d'`
 		do
 			echo $i>>anycast.txt
@@ -287,8 +288,8 @@ done
 }
 
 function singletest(){
-read -p "请输入需要测速的IP: " ip
-read -p "请输入需要测速的端口(默认443): " port
+#read -p "请输入需要测速的IP: " ip
+#read -p "请输入需要测速的端口(默认443): " port
 if [ -z "$ip" ]
 then
 	echo "未输入IP"
@@ -323,7 +324,7 @@ do
 	echo "3. 单IP测速"
 	echo "4. 清空缓存"
 	echo "0. 退出"
-	read -p "请选择菜单(默认1): " menu
+	#read -p "请选择菜单(默认1): " menu
 	if [ -z "$menu" ]
 	then
 		menu=1
@@ -351,11 +352,13 @@ do
 		singletest
 		clear
 		echo "$ip 平均速度 $speed_download kB/s"
+		break
 	fi
 	if [ $menu == 4 ]
 	then
-		rm -rf ipv4.txt ipv6.txt rtt rtt.txt data.txt meta.txt log.txt anycast.txt temp.txt speed.txt
+		rm -rf rtt rtt.txt data.txt meta.txt log.txt anycast.txt temp.txt speed.txt
 		clear
 		echo "缓存已经清空"
+		exit
 	fi
 done
