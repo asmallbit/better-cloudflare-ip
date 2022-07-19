@@ -1,5 +1,23 @@
 # better-cloudflare-ip
 
+## 关于fork
+此fork关闭了强制更新, 增加了自动化筛选并通过`cloudflare api`进行更新,使用前请先完成`.env`文件中关于`cloudflare api`的设置
+
+其中 `shell/start.sh` 用来检查和更新IP, `shell/utils.sh` 暂时用来清除缓存
+
+使用方法:
+
+```
+shell/start.sh		# 检测和更新IP
+shell/utils.sh f        # 清除缓存
+```
+
+注意: 本项目仅供学习使用, 严禁用于不良用途
+
+# 以下是原README:
+
+==============================================================
+
 查找适合自己当前网络环境的优选Cloudflare Anycast IP
 
 默认强制推送最新版本！如果旧版本不想被更新，请自行修改版本号为最新版本！
